@@ -1,0 +1,35 @@
+{% extends 'India/layout.html' %}
+
+{% block title %} {{state.name}} {% endblock %}
+
+{% block body %}
+
+<h1>{{state.name}}</h1>
+
+<p>Area: {{state.area}} sq.km. </p>
+<p>Population: {{state.population}} <p>
+<p>Unemployment:
+<ul>
+    <li> Female: {{state.unemployment_female}}</li>
+    <li> Male: {{state.unemployment_male}}</li>
+</ul>
+</p>
+<p>Crime Rate: {{state.crime}}</p>
+<p>{% if state.gdp != 0 %}
+GDP: {{state.gdp}}
+{% else %}
+GDP: Unavailable on official site
+{% endif %}
+</p>
+
+<ul class="list-inline">
+{% if member %}
+<li class="list-inline-item"><a href="{% url 'community:index' commid=state.id memid=member.id %}" class="btn btn-primary">Take me to Community</a></li>
+{% else %}
+<li class="list-inline-item"><a href="{% url 'map:add' state.id %}" class="btn btn-primary">Join</a></li>
+{% endif %}
+
+<li class="list-inline-item"><a href="{% url 'map:index' %}" class="btn btn-primary">Go Back</a></li>
+
+</ul>
+{% endblock %}

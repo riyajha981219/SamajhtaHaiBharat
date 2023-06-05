@@ -1,0 +1,36 @@
+{% extends 'India/layout.html' %}
+
+{% block title %} Posts {% endblock %}
+{% block body %}
+<br/>
+<h1>Welcome to {{community}}</h1>
+<br/>
+<figure class="text-center">
+<ul class="list-inline">
+    <li class="list-inline-item"><a href= "{% url 'community:addposts' commid=commid memid=memid %}" class="btn btn-primary">Add Post</a></li>
+    <li class="list-inline-item"><a href="{% url 'map:state' commid %}" class="btn btn-primary">Go Back</a></li>
+</ul>
+</figure>
+{% for post in posts %}
+<figure class="text-center">
+<div class="card" >
+  <div class="card-body">
+    {% if post.status %}
+    <p class="card-text">{{post.status}}</p>
+    {% endif %}
+    {% if post.postpic %}
+    <img src="{{post.postpic}}" class="card-img-top" alt="...">
+    {% endif %}
+    <ul class="list-inline">
+    <li class="list-inline-item"><a href="{% url 'community:comment' memid=memid postid=post.id commid=commid %}" class="btn btn-primary">Comment</a></li>
+    </ul>
+  </div>
+</div>
+</figure>
+{%empty%}
+No Post Made Yet
+<br/>
+</br>
+
+{% endfor %}
+{% endblock %}

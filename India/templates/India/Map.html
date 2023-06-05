@@ -1,0 +1,24 @@
+{% extends 'India/layout.html' %}
+
+{% block title %}
+Maps
+{% endblock %}
+
+{% block body %}
+<h1>States and UTs</h1> <br/>
+<div class="d-flex flex-wrap" style="gap:1rem;">
+{% for detail in state %}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{detail.name}}</h5>
+    <a href="{% url 'map:state' detail.id %}" class="btn btn-primary">More Information</a>
+  </div>
+</div>
+<br/>
+{% endfor %}
+</div>
+<br/>
+<figure class="text-end">
+<a href="{% url 'map:logout' %}" class="btn btn-primary">Log out</a>
+</figure>
+{% endblock %}

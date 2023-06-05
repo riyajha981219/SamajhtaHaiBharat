@@ -1,0 +1,80 @@
+{% extends 'India/layout.html' %} {% block title %}Comment{% endblock %} 
+{%block body %} {% if status %}
+<h2>{{status}}</h2>
+{% endif %}
+<h1>Add your comment</h1>
+<figure class="text-center">
+    <a href="{% url 'community:index' commid=commid memid=memid %}" class="btn btn-primary">Go Back</a>
+</figure>
+<figure class="text-center">
+  <div class="justify-content-center">
+    <div class="card">
+      <div class="card-body">
+        {% if post.postpic %}
+        <img src="{{post.postpic}}" class="card-img-top" alt="..." />
+        {% endif %}
+        {% if post.status %}
+        {% if edityes == 0 %}
+            <div class="p text-break w-100">
+            <p class="card-text align-middle">{{post.status|linebreaks}}</p>
+          </div>
+          {% else %}
+          <form
+            action="{% url 'community:edit' memid=memid postid=post.id commid=commid %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <textarea
+              class="form-control"
+              rows="5"
+              id="comment"
+              name="status"
+            >{{post.status}}</textarea>
+            <br />
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+          <br/>
+          {% endif %}
+          {% endif %}
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#" class="btn btn-primary">Comment</a>
+          </li>
+        </ul>
+        <form
+          action="{% url 'community:comment' memid=memid postid=post.id commid=commid%}"
+          method="post"
+        >
+          {% csrf_token %}
+          <label for="comment">Comment:</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            id="comment"
+            name="comment"
+          ></textarea>
+          <br />
+          <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+        <br/>
+        
+                {% for comment in comments %}
+                <div class="d-flex flex-row bd-highlight mb-3 justify-content-between border-bottom border-warning " >
+                <div class="p-2 bd-highlight"><a href="{% url "community:profile" memid=memid name=comment.commenter commid=commid%}">{{comment.commenter}}</a></div>
+                <div class="p-2 bd-highlight text-break">{{comment.comment}}</div>
+                {% for mycomment in mycomments  %}
+                {% if mycomment.id == comment.id %}
+                <div class="p-2 bd-highlight"><a href="{% url 'community:del_comm' commentid=comment.id memid=memid postid=post.id commid=commid%}" class="btn btn-primary">Delete</a></div>
+                {% endif %}
+                {% endfor %}
+                 </div>
+                {%empty%}
+                <p>No comments</p>
+                {%endfor%}
+       
+      </div>
+    </div>
+  </div>
+</figure>
+
+{% endblock %}

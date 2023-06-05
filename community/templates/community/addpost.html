@@ -1,0 +1,29 @@
+{% extends 'India/layout.html' %}
+
+{% block title %}Add Post{% endblock %}
+
+{% block body %}
+<h1>Add</h1>
+{% if error %}
+<p>{{error}}</p>
+{% endif %}
+<figure class="text-center">
+<li class="list-inline-item"><a href="{% url 'community:index' commid=commid memid=memid %}" class="btn btn-primary">Go Back</a></li>
+</figure>
+<form
+          action="{% url 'community:addposts' memid=memid commid=commid %}"
+          method="post"
+        >
+          {% csrf_token %}
+          <label for="comment">Status:</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            id="comment"
+            name="status"
+          ></textarea>
+          <br />
+          <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+
+{% endblock %}

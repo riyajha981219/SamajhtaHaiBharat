@@ -1,0 +1,45 @@
+{% extends 'India/layout.html' %}
+
+{% block title %}{{member}}{% endblock %}
+
+{% block body %}
+<div>
+  <div class="row">
+    <div class="col align-self-center">
+     <h1>{{member.nickname}}</h1>
+    </div>
+    
+    <div class="col align-self-start text-end">
+      One of three columns
+    </div>
+  </div>
+</div>
+<div class="fst-italic">
+      {{member.bio}}
+    </div>
+<br/>
+
+
+    {% for post in posts %}
+    <figure class="text-center">
+  <div class="justify-content-center">
+    <div class="card">
+      <div class="card-body">
+        {% if post.status %}
+        <p class="card-text">{{post.status}}</p>
+        {% endif %} {% if post.postpic %}
+        <img src="{{post.postpic}}" class="card-img-top" alt="..." />
+        {% endif %}
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="{% url 'community:comment' memid=memid postid=post.id commid=commid%}" class="btn btn-primary">Comment</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</figure>
+  {%empty%}
+No posts yet
+{% endfor %}
+{% endblock %}

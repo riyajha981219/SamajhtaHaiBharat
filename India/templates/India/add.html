@@ -1,0 +1,18 @@
+{% extends 'India/layout.html' %} {% block title %} Add Member {% endblock %} 
+{%block body %} 
+ {% load crispy_forms_tags %}  
+{% if status %} {{status}} {% endif %}
+
+<br />
+<br />
+<h1>Hye! Become a member of {{state}}</h1>
+<form
+  action="{% url 'map:add' stateid %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+ 
+    {{form.as_p|crispy}}
+</form>
+{% endblock %}

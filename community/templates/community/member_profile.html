@@ -1,0 +1,78 @@
+{% extends 'India/layout.html' %} {% block title %} {{member}} {% endblock %} 
+{%block body %}
+<div>
+  <div class="row">
+    <div class="col align-self-center">
+     <h1>{{name.nickname}}</h1>
+    </div>
+    
+    <div class="col align-self-start text-end">
+      One of three columns
+    </div>
+  </div>
+</div>
+<div class="fst-italic">
+      {{name.bio}}
+    </div>
+<br/>
+{% if status %}
+<h2>{{status}}</h2>
+{% endif %}
+
+<br/>
+  {% for post in postlist %}
+  <div class="justify-content-center">
+    <div class="card">
+      <div class="card-body">
+        {% if post.postpic %}
+        <img src="{{post.postpic}}" class="card-img-top" alt="..." />
+        {% endif %}
+        <div class="d-flex flex-row mb-3 justify-content-around">
+          {% if post.status%}
+            <div class="p text-break w-100">
+            <p class="text-justify card-text align-middle">{{post.status|linebreaks}}</p>
+          </div>
+          {% endif %}
+          <div class="btn-group flex-shrink-1">
+            <button
+              type="button"
+              class="btn"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <b class="align-top">...</b>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="{% url 'community:edit' memid=memid postid=post.id commid=commid %}"
+                  >Edit</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="{% url 'community:delete' post.id %}"
+                  >Delete</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a
+              href="{% url 'community:comment' memid=memid postid=post.id commid=commid %}"
+              class="btn btn-primary"
+              >Comment</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br />
+  {% endfor %}
+
+{% endblock %}
