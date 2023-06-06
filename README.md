@@ -1,2 +1,2 @@
 # SamajhtaHaiBharat
-Major Project (almost a reddit clone, but not entirely, definitely not in design)
+Major Project (almost a Weverse clone, but not entirely, definitely not in design)
